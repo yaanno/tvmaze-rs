@@ -7,10 +7,10 @@ pub struct Item {
     pub id: i64,
     pub url: String,
     pub name: String,
-    pub season: i64,
-    pub number: i64,
+    pub season: Option<i64>,
+    pub number: Option<i64>,
     #[serde(rename = "type")]
-    pub welcome_type: WelcomeType,
+    pub item_type: Type,
     pub airdate: String,
     pub airtime: String,
     pub airstamp: String,
@@ -20,8 +20,9 @@ pub struct Item {
     pub summary: Option<String>,
     #[serde(rename = "_links")]
     pub links: ItemLinks,
+    pub show: Option<Show>,
     #[serde(rename = "_embedded")]
-    pub embedded: Embedded,
+    pub embedded: Option<Embedded>, // into_show
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -133,6 +134,9 @@ pub enum ShowType {
     Sports,
     #[serde(rename = "Talk Show")]
     TalkShow,
+    Variety,
+    Documentary,
+    News,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -140,6 +144,8 @@ pub enum Status {
     #[serde(rename = "In Development")]
     InDevelopment,
     Running,
+    #[serde(rename = "To Be Determined")]
+    ToBeDetermined,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -151,6 +157,11 @@ pub struct ItemLinks {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum WelcomeType {
+pub enum Type {
     Regular,
+    Ended,
+    #[serde(rename = "To Be Determined")]
+    ToBeDetermined,
+    #[serde(rename = "significant_special")]
+    SignificantSpecial,
 }

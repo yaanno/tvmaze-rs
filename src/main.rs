@@ -17,12 +17,12 @@ async fn main() -> Result<()>{
         .build();
 
     let shows: Results = client
-    .get("https://api.tvmaze.com/schedule/web?date=2023-07-02")
+    .get("https://api.tvmaze.com/schedule")
     .send()
     .await?
     .json()
     .await?;
 
-    println!("{:#?}", shows.first());
+    println!("{:#?}", shows.last());
     Ok(())
 }
