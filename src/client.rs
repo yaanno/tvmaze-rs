@@ -2,9 +2,9 @@ use http_cache_reqwest::{CACacheManager, Cache, CacheMode, HttpCache};
 use reqwest::Client;
 use reqwest_middleware::{ClientBuilder, ClientWithMiddleware};
 
-pub struct RequestClient();
+pub struct ApiClient();
 
-impl RequestClient {
+impl ApiClient {
     pub fn new() -> ClientWithMiddleware {
         ClientBuilder::new(Client::new())
             .with(Cache(HttpCache {
