@@ -1,28 +1,17 @@
-use http_cache_reqwest::{CACacheManager, Cache, CacheMode, HttpCache};
-use reqwest::Client;
-use reqwest_middleware::{ClientBuilder, Result};
-
-#[path = "lib.rs"]
-mod lib;
-use lib::Results;
+use reqwest_middleware::Error;
+use tvmaze_rs::client;
+use tvmaze_rs::results;
 
 #[tokio::main]
-async fn main() -> Result<()>{
-    let client = ClientBuilder::new(Client::new())
-        .with(Cache(HttpCache {
-            mode: CacheMode::Default,
-            manager: CACacheManager::default(),
-            options: None,
-        }))
-        .build();
+async fn main() -> Result<(), Error> {
+    let client = client::RequestClient::new();
 
-    let shows: Results = client
-    .get("https://api.tvmaze.com/schedule")
-    .send()
-    .await?
-    .json()
-    .await?;
-
-    println!("{:#?}", shows.last());
+    let results: results::Results = client
+        .get("https://github.com/yaanno/tvmaze-schedule-flat-data/raw/master/tvmaze-schedule.json")
+        .send()
+        .await?
+        .json()
+        .await?;
+    println!("{:#?}", results.len());
     Ok(())
 }
