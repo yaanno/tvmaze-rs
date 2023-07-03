@@ -20,7 +20,7 @@ pub struct Episode {
     pub summary: String,
     pub url: String,
     #[serde(rename = "type")]
-    pub welcome_type: String,
+    pub episode_type: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
