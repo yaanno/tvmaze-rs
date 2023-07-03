@@ -5,7 +5,7 @@ use tvmaze_rs::results;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let url: &str = ApiURL::get(Api::Schedule).unwrap();
+    let url: &str = ApiURL::get(Api::ScheduleFull).unwrap();
     let api_client: client::ApiClient = client::ApiClient::new().unwrap();
     let results: results::Results = api_client.client.get(url).send().await?.json().await?;
     println!("{:#?}", results.first());
