@@ -1,5 +1,3 @@
-use std::{error, fmt};
-
 #[derive(Debug, Clone)]
 pub enum Api {
     Schedule,
@@ -22,20 +20,10 @@ pub struct ApiURL {
     pub api: Api,
 }
 
-impl error::Error for ApiURL {}
-
-impl fmt::Display for ApiURL {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "invalid first item to double")
-    }
-}
-
 impl ApiURL {
     /// Creates a new [`ApiURL`].
-    pub fn new() -> Self {
-        Self {
-            api: Api::default(),
-        }
+    pub fn new(api: Api) -> Self {
+        Self { api }
     }
 
     pub fn get(&self) -> Result<&'static str, ()> {
@@ -49,6 +37,7 @@ impl ApiURL {
 
 impl Default for ApiURL {
     fn default() -> Self {
-        Self::new()
+        let api = Api::default();
+        Self::new(api)
     }
 }

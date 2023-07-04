@@ -1,8 +1,7 @@
-use std::fmt::Debug;
-
 use http_cache_reqwest::{CACacheManager, Cache, CacheMode, HttpCache};
 use reqwest::{Client, IntoUrl};
 use reqwest_middleware::{ClientBuilder, ClientWithMiddleware, RequestBuilder};
+use std::fmt::Debug;
 
 pub struct CachedApiClient {
     pub client: ClientWithMiddleware,
