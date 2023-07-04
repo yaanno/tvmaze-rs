@@ -1,7 +1,9 @@
 // https://api.tvmaze.com/shows/1?embed=episodes
 
 use crate::episode::Episode;
-use crate::other::*;
+use crate::other::{
+    Externals, Image, Link, Network, Rating, Schedule, ShowType, Status, WebChannel,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,24 +29,18 @@ pub struct Show {
     pub runtime: Option<i64>,
     pub schedule: Schedule,
     #[serde(rename = "type")]
-    pub show_type: String,
-    pub status: Option<String>,
+    pub show_type: ShowType,
+    pub status: Option<Status>,
     pub summary: Option<String>,
     pub updated: Option<i64>,
     pub url: String,
-    pub web_channel: Option<serde_json::Value>,
+    pub web_channel: Option<WebChannel>,
     pub weight: Option<i64>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Embedded {
     pub episodes: Vec<Episode>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum Type {
-    Regular,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

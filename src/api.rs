@@ -7,7 +7,7 @@ pub enum Api {
 
 impl Default for Api {
     fn default() -> Self {
-        Api::Schedule
+        Api::ScheduleWeb
     }
 }
 

@@ -6,7 +6,7 @@ use tvmaze_rs::results;
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     let url: &str = ApiURL::default().get().unwrap();
-    let cached: results::Results = CachedApiClient::default()
+    let cached: results::WebResults = CachedApiClient::default()
         .get(url)
         .send()
         .await?
