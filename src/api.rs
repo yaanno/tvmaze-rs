@@ -5,9 +5,16 @@ pub enum Api {
     ScheduleFull,
 }
 
+impl Api {
+    pub fn new(api: Api) -> Self {
+        api
+    }
+}
+
 impl Default for Api {
     fn default() -> Self {
-        Api::ScheduleWeb
+        let default_api = Api::Schedule;
+        Self::new(default_api)
     }
 }
 
