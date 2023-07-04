@@ -1,13 +1,18 @@
 use reqwest_middleware::Error;
-use tvmaze_rs::api::{Api, ApiURL};
-use tvmaze_rs::client;
+use tvmaze_rs::api::ApiURL;
+use tvmaze_rs::client::CachedApiClient;
 use tvmaze_rs::results;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let url: &str = ApiURL::get(Api::ScheduleFull).unwrap();
-    let api_client: client::ApiClient = client::ApiClient::new().unwrap();
-    let results: results::Results = api_client.client.get(url).send().await?.json().await?;
-    println!("{:#?}", results.first());
+    let url: &str = ApiURL::default().get().unwrap();
+    let cached: results::Results = CachedApiClient::default()
+        .get(url)
+        .send()
+        .await?
+        .json()
+        .await?;
+
+    println!("{:#?}", cached.first());
     Ok(())
 }
